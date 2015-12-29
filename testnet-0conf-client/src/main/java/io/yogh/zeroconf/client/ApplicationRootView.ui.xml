@@ -4,16 +4,43 @@
  <ui:style>
  .content {
  	text-align: center;
+ 	max-width: 600px;
+ 	margin: 80px auto;
+ 	background-color: #777;
+ 	box-shadow: 0px 0px 20px #fff;
+ 	padding: 20px 0px;
+ 	color: #fff;
  }
  
+ .content p {
+	padding: 0px 20px;
+	}
+ 
  .message {
- 	border: 5px solid black;
- 	padding: 20px;
+ 	border: 5px solid #ff9933;
+ 	padding: 20px !important;
+ 	font-weight: bold;
+ 	font-size: 1.5em;
  	margin: 0px 50px;
  }
+ .button {
+	padding: 20px;
+	border: 1px solid white;
+	border-radius: 5px;
+	cursor: pointer;
+	box-shadow: 0px 0px 5px transparent;
+	transition: all 0.1s ease-out;
+	}
+	.button:hover {
+	background-color: #ff9933;
+	color: white;
+	font-weight: bold;
+	box-shadow: 0px 0px 5px white;
+	padding: 20px 30px;
+	}
  </ui:style>
  <g:HTMLPanel styleName="{style.content}">
-  <h1>Yoghurt's zero-confirmation digital purchase Bitcoin Testnet merchant!</h1>
+  <h1>Yoghurt's zero-confirmation digital purchase Bitcoin Testnet Merchant!</h1>
   <p>Instant and Secure-ish!</p>
   <p>The risk is all mine, come and do your purchase while I do nothing to stop you from stealing!</p>
   <p>Testnet coins only, for obvious reasons.</p>
@@ -22,7 +49,7 @@
   <p>I will give to you, for the mere price of 0.0001 tBTC (Testnet Bitcoins), a SHA256 hashed representation of the following original text message:</p>
   <p class="{style.message}">I have purchased a SHA256 hash of this text using a 0-confirmation super-turbo-secure instant purchase.</p>
   <p>Click this here button to unveil the address you need to send money to:</p>
-  <g:Button ui:field="payButton" text="CLICK ME TO SHOW QR CODE AND ADDRESS" />
+  <g:Button ui:field="payButton" styleName="{style.button}" text="CLICK THIS TO SHOW QR CODE AND ADDRESS" />
   <g:HTMLPanel ui:field="payContainer" visible="false">
    <p>Send 0.0001 tBTC to the following address to receive your purchase instantly:</p>
    <g:Label ui:field="address" />
