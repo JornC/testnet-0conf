@@ -1,7 +1,31 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
-  <ui:with field="res" type="io.yogh.zeroconf.client.resources.R.ApplicationResource" />
-  <ui:style>
-  </ui:style>
-  <g:Label text="Works!" />
+ <ui:with field="res" type="io.yogh.zeroconf.client.resources.R.ApplicationResource" />
+ <ui:style>
+ .content {
+ 	text-align: center;
+ }
+ 
+ .message {
+ 	border: 5px solid black;
+ 	padding: 20px;
+ 	margin: 0px 50px;
+ }
+ </ui:style>
+ <g:HTMLPanel styleName="{style.content}">
+  <h1>Yoghurt's zero-confirmation digital purchase Bitcoin Testnet merchant!</h1>
+  <p>Instant and Secure-ish!</p>
+  <p>The risk is all mine, come and do your purchase while I do nothing to stop you from stealing!</p>
+  <p>Testnet coins only, for obvious reasons.</p>
+  <hr />
+  <h2>Item #0</h2>
+  <p>I will give to you, for the mere price of 0.0001 tBTC (Testnet Bitcoins), a SHA256 hashed representation of the following original text message:</p>
+  <p class="{style.message}">I have purchased a SHA256 hash of this text using a 0-confirmation super-turbo-secure instant purchase.</p>
+  <p>Click this here button to unveil the address you need to send money to:</p>
+  <g:Button ui:field="payButton" text="CLICK ME TO SHOW QR CODE AND ADDRESS" />
+  <g:HTMLPanel ui:field="payContainer" visible="false">
+   <p>Send 0.0001 tBTC to the following address to receive your purchase instantly:</p>
+   <g:Label ui:field="address" />
+  </g:HTMLPanel>
+ </g:HTMLPanel>
 </ui:UiBinder>
