@@ -11,19 +11,11 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-user</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-servlet</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-dev</artifactId>
-      <scope>provided</scope>
+      <groupId>io.yogh</groupId>
+      <artifactId>testnet-0conf-client</artifactId>
+      <version>0.1</version>
+      <type>war</type>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>io.yogh</groupId>
@@ -31,15 +23,38 @@
       <version>0.1</version>
     </dependency>
     <dependency>
-      <groupId>com.google.gwt.inject</groupId>
-      <artifactId>gin</artifactId>
-      <version>2.1.2</version>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-servlet</artifactId>
     </dependency>
     <dependency>
-      <groupId>junit </groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-catalina</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.3.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.jackson</groupId>
+      <artifactId>jackson-mapper-asl</artifactId>
+      <version>1.9.12</version>
     </dependency>
   </dependencies>
 
@@ -68,14 +83,30 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.6</source>
+          <source>1.7</source>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-          <packagingIncludes>WEB-INF/deploy/**/*,application/**/*</packagingIncludes>
+          <attachClasses>true</attachClasses>
+          <webResources>
+            <webResource>
+              <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+              <includes>
+                <include>web.xml</include>
+              </includes>
+              <targetPath>WEB-INF</targetPath>
+              <filtering>true</filtering>
+            </webResource>
+          </webResources>
+          <warSourceExcludes>application/application.nocache.js</warSourceExcludes>
+          <overlays>
+            <overlay>
+              <groupId>io.yogh</groupId>
+              <artifactId>testnet-0conf-client</artifactId>
+            </overlay>
+          </overlays>
         </configuration>
       </plugin>
     </plugins>

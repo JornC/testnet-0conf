@@ -1,11 +1,11 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
-<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:w="urn:import:io.yogh.zeroconf.client.widget">
  <ui:with field="res" type="io.yogh.zeroconf.client.resources.R.ApplicationResource" />
  <ui:style>
  .content {
  	text-align: center;
  	max-width: 600px;
- 	margin: 80px auto;
+ 	margin: 40px auto;
  	background-color: #777;
  	box-shadow: 0px 0px 20px #fff;
  	padding: 20px 0px;
@@ -13,8 +13,8 @@
  }
  
  .content p {
-	padding: 0px 20px;
-	}
+ 	padding: 0px 20px;
+ }
  
  .message {
  	border: 5px solid #ff9933;
@@ -23,36 +23,67 @@
  	font-size: 1.5em;
  	margin: 0px 50px;
  }
+ 
  .button {
-	padding: 20px;
-	border: 1px solid white;
-	border-radius: 5px;
-	cursor: pointer;
-	box-shadow: 0px 0px 5px transparent;
-	transition: all 0.1s ease-out;
-	}
-	.button:hover {
-	background-color: #ff9933;
-	color: white;
-	font-weight: bold;
-	box-shadow: 0px 0px 5px white;
-	padding: 20px 30px;
-	}
+ 	padding: 20px;
+ 	border: 1px solid white;
+ 	border-radius: 5px;
+ 	cursor: pointer;
+ 	box-shadow: 0px 0px 5px transparent;
+ 	transition: all 0.1s ease-out;
+ }
+ 
+ .button:hover {
+ 	background-color: #ff9933;
+ 	color: white;
+ 	font-weight: bold;
+ 	box-shadow: 0px 0px 5px white;
+ 	padding: 20px 30px;
+ }
+ 
+ .error {
+ 	border: 5px solid #ff0000;
+ 	padding: 20px !important;
+ 	font-weight: bold;
+ 	font-size: 1.5em;
+ 	margin: 0px 50px;
+ }
+ 
+ .qr img {
+ 	margin: 0 auto;
+ }
+ 
+ .subtleItalics {
+ 	font-style: italic;
+ 	font-size: 0.7em;
+ }
  </ui:style>
  <g:HTMLPanel styleName="{style.content}">
   <h1>Yoghurt's zero-confirmation digital purchase Bitcoin Testnet Merchant!</h1>
-  <p>Instant and Secure-ish!</p>
+  <p>Instant and Secure-ish*!</p>
   <p>The risk is all mine, come and do your purchase while I do nothing to stop you from stealing!</p>
-  <p>Testnet coins only, for obvious reasons.</p>
+  <p>Testnet coins only, for what-should-be-obvious reasons.</p>
+  <p class="{style.subtleItalics}">* This application accepts 0-conf payments without question, it is intended to demonstrate these payments are insecure. One can invent many measures to try and counteract the insecurity of 0-conf payments, but unfortunately - the problem is fundamental. Note that the merchant takes all risk, and it is their choice to take it - a consumer might only see this reflected in a premium on price, which would presumably account for potential losses. It is of the opinion of the creator of this proof-of-concept that 0-conf payments must be prevented when at all possible, and alternatives must be sought or implemented. Waiting for confirmation(s), GreenAddress payments, and, most promisingly, the Lightning Network, being among such alternatives.</p>
   <hr />
   <h2>Item #0</h2>
-  <p>I will give to you, for the mere price of 0.0001 tBTC (Testnet Bitcoins), a SHA256 hashed representation of the following original text message:</p>
-  <p class="{style.message}">I have purchased a SHA256 hash of this text using a 0-confirmation super-turbo-secure instant purchase.</p>
-  <p>Click this here button to unveil the address you need to send money to:</p>
-  <g:Button ui:field="payButton" styleName="{style.button}" text="CLICK THIS TO SHOW QR CODE AND ADDRESS" />
-  <g:HTMLPanel ui:field="payContainer" visible="false">
-   <p>Send 0.0001 tBTC to the following address to receive your purchase instantly:</p>
-   <g:Label ui:field="address" />
-  </g:HTMLPanel>
+  <p>I will give to you, for the mere price of 0.0001 tBTC (Testnet Bitcoins), a signature for the following super original text message, made with
+   the privkey of the address you're sending to:</p>
+  <fieldset class="{style.message}">
+   <legend>SIG</legend>
+   <span ui:field="signatureTextField" />
+  </fieldset>
+  <g:DeckPanel ui:field="switchPanel">
+   <g:HTMLPanel ui:field="payContainer">
+    <p>Click this here button to unveil the address you need to send money to:</p>
+    <g:Button ui:field="payButton" styleName="{style.button}" text="COMPLETE PURCHASE AND SEND LE COINS" />
+   </g:HTMLPanel>
+   <g:HTMLPanel ui:field="destinationContainer" visible="false">
+    <p>Send 0.0001 tBTC to the following address to receive your purchase instantly:</p>
+    <w:QRCodeWidget styleName="{style.qr}" ui:field="addressQR" />
+    <p ui:field="addressText" />
+    <g:Label ui:field="errorText" styleName="{style.error}"
+     text="Poopsnickers! The payment server returned nothing useful at all. This is a catastrophic error on my part! Maybe later." visible="false" />
+   </g:HTMLPanel>
+  </g:DeckPanel>
  </g:HTMLPanel>
 </ui:UiBinder>
