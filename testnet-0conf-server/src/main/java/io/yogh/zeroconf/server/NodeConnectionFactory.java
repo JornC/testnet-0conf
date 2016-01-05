@@ -1,7 +1,6 @@
 package io.yogh.zeroconf.server;
 
 import io.yogh.zeroconf.server.providers.BitcoinJSONRPCRetriever;
-import io.yogh.zeroconf.shared.service.ApplicationService;
 
 public class NodeConnectionFactory {
   private BitcoinJSONRPCRetriever hook;

@@ -57,33 +57,58 @@
  	font-style: italic;
  	font-size: 0.7em;
  }
+ 
+ .wrap {
+ 	max-width: 450px;
+ 	word-wrap: break-word;
+ 	text-align: justify;
+ }
  </ui:style>
  <g:HTMLPanel styleName="{style.content}">
   <h1>Yoghurt's zero-confirmation digital purchase Bitcoin Testnet Merchant!</h1>
   <p>Instant and Secure-ish*!</p>
   <p>The risk is all mine, come and do your purchase while I do nothing to stop you from stealing!</p>
   <p>Testnet coins only, for what-should-be-obvious reasons.</p>
-  <p class="{style.subtleItalics}">* This application accepts 0-conf payments without question, it is intended to demonstrate these payments are insecure. One can invent many measures to try and counteract the insecurity of 0-conf payments, but unfortunately - the problem is fundamental. Note that the merchant takes all risk, and it is their choice to take it - a consumer might only see this reflected in a premium on price, which would presumably account for potential losses. It is of the opinion of the creator of this proof-of-concept that 0-conf payments must be prevented when at all possible, and alternatives must be sought or implemented. Waiting for confirmation(s), GreenAddress payments, and, most promisingly, the Lightning Network, being among such alternatives.</p>
+  <p class="{style.subtleItalics}">* This application accepts 0-conf payments without question, it is intended to demonstrate these payments are insecure. One can invent
+   many measures to try and counteract the insecurity of 0-conf payments, but unfortunately - the problem is fundamental. Note that the merchant takes
+   all risk, and it is their choice to take it - a consumer might only see this reflected in a premium on price, which would presumably account for
+   potential losses. It is of the opinion of the creator of this proof-of-concept that 0-conf payments must be prevented when at all possible, and
+   alternatives must be sought or implemented. Waiting for confirmation(s), GreenAddress payments, and, most promisingly, the Lightning Network, being
+   among such alternatives.</p>
   <hr />
   <h2>Item #0</h2>
-  <p>I will give to you, for the mere price of 0.0001 tBTC (Testnet Bitcoins), a signature for the following super original text message, made with
-   the privkey of the address you're sending to:</p>
+  <p>I will give to you, for the mere price of 0.1 tBTC (Testnet Bitcoins), a signature for the following super original text message, made with
+   the
+   privkey of the address you're sending to:</p>
   <fieldset class="{style.message}">
-   <legend>SIG</legend>
-   <span ui:field="signatureTextField" />
+   <legend>SIG CLEAR TEXT MESSAGE</legend>
+   <span ui:field="signatureClearTextField" />
   </fieldset>
-  <g:DeckPanel ui:field="switchPanel">
-   <g:HTMLPanel ui:field="payContainer">
+  <w:SwitchPanel ui:field="switchPanel">
+   <g:HTMLPanel>
     <p>Click this here button to unveil the address you need to send money to:</p>
     <g:Button ui:field="payButton" styleName="{style.button}" text="COMPLETE PURCHASE AND SEND LE COINS" />
    </g:HTMLPanel>
-   <g:HTMLPanel ui:field="destinationContainer" visible="false">
-    <p>Send 0.0001 tBTC to the following address to receive your purchase instantly:</p>
+   <g:HTMLPanel>
+    <p>Send 0.1 tBTC to the following address to receive your purchase instantly:</p>
     <w:QRCodeWidget styleName="{style.qr}" ui:field="addressQR" />
-    <p ui:field="addressText" />
-    <g:Label ui:field="errorText" styleName="{style.error}"
-     text="Poopsnickers! The payment server returned nothing useful at all. This is a catastrophic error on my part! Maybe later." visible="false" />
+    <p ui:field="addressTextField" />
+    <p>Valid for 15 or so minutes.</p>
    </g:HTMLPanel>
-  </g:DeckPanel>
+   <g:HTMLPanel>
+    <p>Congratulations! I have received your 0-conf payment! I trust you completely, of course, and will not be waiting for confirmation. I consider
+     this payment - knowing full well you can still attempt to double-spend this transaction while it hasn't been confirmed. But ah!</p>
+    <p>Here is your reward!</p>
+    <fieldset class="{style.message}">
+     <legend>YOUR PURCHASE</legend>
+     <div class="{style.wrap}" ui:field="signatureSignedTextField" />
+    </fieldset>
+    <p>These are the transactions I have received from you:</p>
+    <g:FlowPanel ui:field="transactionListPanel" />
+   </g:HTMLPanel>
+   <g:Label ui:field="errorText" styleName="{style.error}"
+    text="Poopsnickers! The payment server returned nothing useful at all. This is a catastrophic error on my part! Maybe later." visible="false" />
+   <g:Label styleName="{style.error}" text="No payment received in something like 15 minutes. No longer checking for payment." />
+  </w:SwitchPanel>
  </g:HTMLPanel>
 </ui:UiBinder>
