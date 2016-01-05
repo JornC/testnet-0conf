@@ -6,7 +6,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>testnet-0conf-client</artifactId>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
   <name>testnet-0conf client</name>
 
   <dependencies>
@@ -40,10 +40,38 @@
         <directory>src/main/java</directory>
       </resource>
       <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>${project.build.directory}/generated-sources/gwt</directory>
+      </resource>
+      <resource>
         <directory>/testnet-0conf-client/war/WEB-INF/classes</directory>
       </resource>
     </resources>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>gwt-maven-plugin</artifactId>
+        <configuration>
+          <extraJvmArgs>-Xmx1024m -Xms1024m -Dgwt.jjs.permutationWorkerFactory=com.google.gwt.dev.ThreadedPermutationWorkerFactory</extraJvmArgs>
+          <localWorkers>1</localWorkers>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <packagingIncludes>WEB-INF/deploy/**/*,application/**/*</packagingIncludes>
+        </configuration>
+      </plugin>
+    
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
