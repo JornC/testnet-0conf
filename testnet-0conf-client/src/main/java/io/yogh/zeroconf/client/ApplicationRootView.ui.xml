@@ -1,5 +1,6 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
-<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:w="urn:import:io.yogh.zeroconf.client.widget">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder" xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:w="urn:import:io.yogh.zeroconf.client.widget"
+ xmlns:a="urn:import:io.yogh.zeroconf.client.ui">
  <ui:with field="res" type="io.yogh.zeroconf.client.resources.R.ApplicationResource" />
  <ui:style>
  .content {
@@ -16,53 +17,26 @@
  	padding: 0px 20px;
  }
  
- .message {
- 	border: 5px solid #ff9933;
- 	padding: 20px !important;
- 	font-weight: bold;
- 	font-size: 1.5em;
- 	margin: 0px 50px;
- }
- 
- .button {
- 	padding: 20px;
- 	border: 1px solid white;
- 	border-radius: 5px;
- 	cursor: pointer;
- 	box-shadow: 0px 0px 5px transparent;
- 	transition: all 0.1s ease-out;
- }
- 
- .button:hover {
- 	background-color: #ff9933;
- 	color: white;
- 	font-weight: bold;
- 	box-shadow: 0px 0px 5px white;
- 	padding: 20px 30px;
- }
- 
- .error {
- 	border: 5px solid #ff0000;
- 	padding: 20px !important;
- 	font-weight: bold;
- 	font-size: 1.5em;
- 	margin: 0px 50px;
- }
- 
- .qr img {
- 	margin: 0 auto;
- }
- 
  .subtleItalics {
  	font-style: italic;
  	font-size: 0.7em;
  }
  
- .wrap {
- 	max-width: 450px;
- 	word-wrap: break-word;
- 	text-align: justify;
+ .button {
+    padding: 10px;
+    background-color: #A8D69F;
+    border: 1px solid white;
+    transition: all 0.1s ease-out;
+    cursor: pointer;
+    margin: 0px 10px;
  }
+ .button:hover {
+	background-color: red;
+	border-color: pink;
+	}
+ .button:active {
+	background-color: crimson;
+	}
  </ui:style>
  <g:HTMLPanel styleName="{style.content}">
   <h1>Yoghurt's zero-confirmation digital purchase Bitcoin Testnet Merchant!</h1>
@@ -76,39 +50,12 @@
    alternatives must be sought or implemented. Waiting for confirmation(s), GreenAddress payments, and, most promisingly, the Lightning Network, being
    among such alternatives.</p>
   <hr />
-  <h2>Item #0</h2>
-  <p>I will give to you, for the mere price of 0.1 tBTC (Testnet Bitcoins), a signature for the following super original text message, made with
-   the
-   privkey of the address you're sending to:</p>
-  <fieldset class="{style.message}">
-   <legend>SIG CLEAR TEXT MESSAGE</legend>
-   <span ui:field="signatureClearTextField" />
-  </fieldset>
+  <g:Button styleName="{style.button}" ui:field="vendorButton" text="VENDOR" />
+  <g:Button styleName="{style.button}" ui:field="historyButton" text="PURCHASE HISTORY (public)" />
+  <hr />
   <w:SwitchPanel ui:field="switchPanel">
-   <g:HTMLPanel>
-    <p>Click this here button to unveil the address you need to send money to:</p>
-    <g:Button ui:field="payButton" styleName="{style.button}" text="COMPLETE PURCHASE AND SEND LE COINS" />
-   </g:HTMLPanel>
-   <g:HTMLPanel>
-    <p>Send 0.1 tBTC to the following address to receive your purchase instantly:</p>
-    <w:QRCodeWidget styleName="{style.qr}" ui:field="addressQR" />
-    <p ui:field="addressTextField" />
-    <p>Valid for 15 or so minutes.</p>
-   </g:HTMLPanel>
-   <g:HTMLPanel>
-    <p>Congratulations! I have received your 0-conf payment! I trust you completely, of course, and will not be waiting for confirmation. I consider
-     this payment - knowing full well you can still attempt to double-spend this transaction while it hasn't been confirmed. But ah!</p>
-    <p>Here is your reward!</p>
-    <fieldset class="{style.message}">
-     <legend>YOUR PURCHASE</legend>
-     <div class="{style.wrap}" ui:field="signatureSignedTextField" />
-    </fieldset>
-    <p>These are the transactions I have received from you:</p>
-    <g:FlowPanel ui:field="transactionListPanel" />
-   </g:HTMLPanel>
-   <g:Label ui:field="errorText" styleName="{style.error}"
-    text="Poopsnickers! The payment server returned nothing useful at all. This is a catastrophic error on my part! Maybe later." visible="false" />
-   <g:Label styleName="{style.error}" text="No payment received in something like 15 minutes. No longer checking for payment." />
+   <a:VendorView ui:field="vendor" />
+   <g:SimplePanel></g:SimplePanel>
   </w:SwitchPanel>
- </g:HTMLPanel>
+  </g:HTMLPanel>
 </ui:UiBinder>
